@@ -10,6 +10,7 @@ class LinkedList {
   length = 0;
   // 초기값 head
   head = null;
+  // TODO: tail 추가해서 마지막 노드를 참조할 수 있도록 하기(삽입 O(1)으로 만들기)
 
   add(value) {
     if (this.head) {
@@ -70,6 +71,8 @@ class LinkedList {
 
 class Node {
   next = null;
+  // TODO: prev 추가해서 이전값도 참조할 수 있도록 하기
+
   // 외부에서 전달받을 값은 constructor를 사용해야 함.
   constructor(value) {
     this.value = value;
