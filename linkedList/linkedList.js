@@ -31,6 +31,8 @@ class LinkedList {
   }
 
   // # private 함수
+  // Private class fields - ES2019 에서는 해쉬 # prefix 를 추가해 private class 필드를 선언할 수 있게 됨.
+  // 참고: https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Classes/Private_properties
   #search(index) {
     let count = 0;
     let prev;
