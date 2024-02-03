@@ -5,10 +5,17 @@ class MaxHeap {
   #reheapUp = (index) => {
     if (index > 0) {
       const parentIndex = Math.floor((index - 1) / 2);
+      const leftChildIndex = parentIndex * 2 + 1;
+      const rightChildIndex = parentIndex * 2 + 2;
+      let largerChildIndex =
+        this.arr[leftChildIndex] > this.arr[rightChildIndex] || this.arr[rightChildIndex] === undefined
+          ? leftChildIndex
+          : rightChildIndex;
+
       // 부모 노드보다 자식 노드가 크면 swap
-      if (this.arr[parentIndex] < this.arr[index]) {
+      if (this.arr[parentIndex] < this.arr[largerChildIndex]) {
         // 값 바꾸기
-        [this.arr[parentIndex], this.arr[index]] = [this.arr[index], this.arr[parentIndex]];
+        [this.arr[parentIndex], this.arr[largerChildIndex]] = [this.arr[largerChildIndex], this.arr[parentIndex]];
         // 다시 heapify (부모 노드로 올라간 것의 부모 노드랑 다시 비교해서 heapify)
         // 이젠 parentIndex가 자식 index가 됨
         this.#reheapUp(parentIndex);
@@ -25,7 +32,10 @@ class MaxHeap {
     if (leftChildIndex < this.arr.length) {
       const rightChildIndex = index * 2 + 2;
       // 두 자식 노드 중 큰것보다 부모 노드가 작으면 swap
-      const largerChildIndex = this.arr[leftChildIndex] > this.arr[rightChildIndex] ? leftChildIndex : rightChildIndex;
+      const largerChildIndex =
+        this.arr[leftChildIndex] > this.arr[rightChildIndex] || this.arr[rightChildIndex] === undefined
+          ? leftChildIndex
+          : rightChildIndex;
 
       if (this.arr[index] < this.arr[largerChildIndex]) {
         [this.arr[index], this.arr[largerChildIndex]] = [this.arr[largerChildIndex], this.arr[index]];
@@ -38,7 +48,7 @@ class MaxHeap {
   insert(value) {
     // 우선 마지막에 추가한 후 heapify
     const index = this.arr.length;
-    this.arr[index] = value;
+    this.arr.push(value);
     this.#reheapUp(index);
 
     return this.arr;
@@ -84,11 +94,11 @@ class MaxHeap {
 }
 
 const maxHeap = new MaxHeap();
-console.log(maxHeap.insert(1));
-console.log(maxHeap.insert(2));
-console.log(maxHeap.insert(3));
-console.log(maxHeap.insert(4));
-console.log(maxHeap.insert(5));
-console.log(maxHeap.search(5));
-console.log(maxHeap.remove());
-console.log(maxHeap.sort());
+console.log(maxHeap.insert(1)); // [ 1 ]
+console.log(maxHeap.insert(2)); // [ 2, 1 ]
+console.log(maxHeap.insert(3)); // [ 3, 1, 2 ]
+console.log(maxHeap.insert(4)); // [ 4, 3, 2, 1 ]
+console.log(maxHeap.insert(5)); // [ 5, 4, 2, 1, 3 ]
+console.log(maxHeap.search(5)); // 0
+console.log(maxHeap.remove()); // 5
+console.log(maxHeap.sort()); // [ 4, 3, 2, 1 ]
