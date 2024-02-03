@@ -72,12 +72,16 @@ class MaxHeap {
 
   // 최대 힙이므로 내림차순 정렬
   sort() {
+    const temp = this.arr;
     const sortedArray = [];
 
     // root 노드 삭제하고 heapify해주는 과정 반복하면서 삭제된 root 노드를 모아 배열에 넣어주면 정렬됨
     while (this.arr.length > 0) {
       sortedArray.push(this.remove());
     }
+
+    // remove() 과정에서 arr이 모두 사라졌으므로 temp에 담아둔 arr값 다시 넣기
+    this.arr = temp;
 
     return sortedArray;
   }
@@ -99,6 +103,7 @@ console.log(maxHeap.insert(2)); // [ 2, 1 ]
 console.log(maxHeap.insert(3)); // [ 3, 1, 2 ]
 console.log(maxHeap.insert(4)); // [ 4, 3, 2, 1 ]
 console.log(maxHeap.insert(5)); // [ 5, 4, 2, 1, 3 ]
+
 console.log(maxHeap.search(5)); // 0
 console.log(maxHeap.remove()); // 5
 console.log(maxHeap.sort()); // [ 4, 3, 2, 1 ]
